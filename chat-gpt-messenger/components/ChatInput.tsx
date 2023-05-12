@@ -35,11 +35,23 @@ function ChatInput({ chatId }: Props) {
           `https://https://ui-avatars.com/api/?name=${session?.user?.name}&background=random`,
       },
     };
+    console.log({ chatId }, session?.user?.email!);
+    try {
+      await addDoc(
+        collection(
+          db,
+          "users",
+          session?.user?.email!,
+          "chats",
+          chatId,
+          "messages"
+        ),
+        message
+      );
+    } catch (error) {
+      console.log({ error });
+    }
 
-    await addDoc(
-      collection(db, "users", session?.user?.email!, "messages"),
-      message
-    );
     // Toast notification for loading
     const notification = toast.loading("ChatGPT is thinking...");
 
