@@ -12,7 +12,7 @@ export default function SideBar() {
 
   const [chats, loading, error] = useCollection(
     session && collection(db, "users", session.user?.email!, "chats"),
-    orderBy("createdAt", "asc")
+    orderBy("createdAt", "asc") as any
   );
 
   console.log(chats);
